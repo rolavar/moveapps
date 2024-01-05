@@ -13,6 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>moveapps-desafio</name>
     <description>moveapps-desafio</description>
+
     <properties>
         <java.version>17</java.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
@@ -81,6 +82,7 @@
     </dependencies>
 
     <build>
+        <finalName>moveapps-desafio</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

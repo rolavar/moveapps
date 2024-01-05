@@ -10,6 +10,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -46,12 +47,12 @@ public class SecurityConfig  {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/auth/**", "/h2-console/**").permitAll()
+                .antMatchers("/auth/**", "/h2-console/**", "/swagger**/**", "/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        http.headers(headers -> headers.frameOptions(frameOption -> frameOption.sameOrigin()));
+        http.headers(headers -> headers.frameOptions(FrameOptionsConfig::sameOrigin));
         http.authenticationProvider(authenticationProvider());
 
         return http.build();
